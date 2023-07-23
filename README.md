@@ -9,3 +9,25 @@ The time complexities of each structure's operations are included alongside the 
   - Stack <i>(Singly Linked List)</i>
   - Queue <i>(Singly Linked List)</i>
   - Priority Queue <i>(Binary Heaps / Dynamic Array)</i>
+
+## Example Makefile for Debugging the Data Structures
+This is an example makefile for debugging the Priority Queue. Place the following makefile, alongside all `.cpp` and `.h` dependencies.
+```
+CC = g++
+
+PriorityQueue: DynamicArray.o PriorityQueue.o Main.o
+	$(CC) -o PriorityQueue DynamicArray.o PriorityQueue.o Main.o
+	$(RM) *.o
+
+DynamicArray.o: DynamicArray.cpp DynamicArray.h
+	$(CC) -c DynamicArray.cpp
+
+PriorityQueue.o: PriorityQueue.cpp PriorityQueue.h
+	$(CC) -c PriorityQueue.cpp
+
+Main.o: Main.cpp PriorityQueue.h
+	$(CC) -c Main.cpp
+
+clean:
+	$(RM) PriorityQueue *.o *-
+```
