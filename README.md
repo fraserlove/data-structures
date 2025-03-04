@@ -1,34 +1,22 @@
-# Data Structures
-A data structures library implemented in C++ that features commonly found structures such as queues, stacks, singly linked lists and dynamic arrays. The library has been designed so that the data structures are independent of any C++ standard or third-party library. Data structures have been designed to build upon previous structures, for example the priority queue is implemented using the library's own dynamic array class. 
+# Strux
 
-The time complexities of each structure's operations are included alongside the method’s declaration in the structures header class. Within each data structures folder is a Main.cpp file which is not a dependency to create the data structure but provides a console system to easily create and modify the relevant data structure for testing.
+A lightweight C++ library implementing essential data structures with zero external dependencies. Each structure is built on top of simpler ones, forming an integrated, standalone collection that works across different C++ standards.
 
-## Included Data Structures
-Some data structures are built ontop of existing data structures in the library. This relationship is highlighed by including the underlying data structure used in parenthesis.
-  - Singly Linked List
-  - Dynamic Array <i>(static arrays)</i>
-  - Stack <i>(singly linked list)</i>
-  - Queue <i>(singly linked list)</i>
-  - Priority Queue <i>(dynamic array - represents binary heaps)</i>
 
-## Example Makefile for Debugging
-This is an example makefile for debugging the Priority Queue. Place the following makefile, alongside all `.cpp` and `.h` dependencies.
-```
-CC = g++
+| Structure | Base Type | `push` | `pop` | `insert` | `remove` | `contains` | `get` | `set` | `find` | `clear` | `length` | `isEmpty` | `peek` | `reverse` |
+|-----------|---------------------|--------------|-------------|--------|--------|----------|-----|-----|------|-------|--------|---------|------|---------|
+| `List` | - | O(1) | O(n) | O(n) | O(n) | O(n) | O(n) | O(n) | O(n) | O(n) | O(1) | O(1) | O(1) | O(n) |
+| `Vector` | `T[]` | O(1) | O(1) | O(n) | O(n) | O(n) | O(1) | O(1) | O(n) | O(1) | O(1) | O(1) | - | O(n) |
+| `Stack` | `List` | O(1) | O(1) | - | - | O(n) | - | - | - | O(n) | O(1) | O(1) | O(1) | - |
+| `Queue` | `List` | O(1) | O(1) | - | - | O(n) | - | - | - | O(n) | O(1) | O(1) | O(1) | - |
+| `PQueue` | `Vector` | O(log n) | O(log n) | - | O(log n) | O(n) | - | - | - | O(1) | O(1) | O(1) | O(1) | - |
 
-PriorityQueue: DynamicArray.o PriorityQueue.o Main.o
-	$(CC) -o PriorityQueue DynamicArray.o PriorityQueue.o Main.o
-	$(RM) *.o
 
-DynamicArray.o: DynamicArray.cpp DynamicArray.h
-	$(CC) -c DynamicArray.cpp
+## Testing
 
-PriorityQueue.o: PriorityQueue.cpp PriorityQueue.h
-	$(CC) -c PriorityQueue.cpp
+Each data structure is tested using Google Test. To run all tests, use the following commands:
 
-Main.o: Main.cpp PriorityQueue.h
-	$(CC) -c Main.cpp
-
-clean:
-	$(RM) PriorityQueue *.o *-
+```sh
+cmake -B build && cmake --build build
+ctest --test-dir build
 ```
